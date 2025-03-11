@@ -1,14 +1,7 @@
-#include <iostream>
-#include <string>
-#include <thread>
+#include "game.h"
 
-
-class PSS
+void PSS::screen()
 {
-public:
-
-    void screen()
-    {
         std::cout << "\t\t\t\t ===================================================\n"
                      "\t\t\t\t|                                                   |\n"
                      "\t\t\t\t|                                                   |\n"
@@ -18,92 +11,64 @@ public:
                      "\t\t\t\t|                1       2       3                  |\n"
                      "\t\t\t\t|                                                   |\n"
                      "\t\t\t\t ===================================================\n";
-    }
-
-    std::string pick(int option)
-    {
-        if (option == 1)
-        {
-            return "Paper";
-        }
-        else if (option == 2)
-        {
-            return "Scissors";
-        }
-        else if (option == 3)
-        {
-            return "Stone";
-        }
-        return "Invalid!";
-    }
-
-    std::string decision(std::string player, std::string AI)
-    {
-        if ((player == "Paper" && AI == "Paper") || (player == "Scissors" && AI == "Scissors") || (player == "Stone" && AI == "Stone"))
-        {
-            return "it's a Tie !";
-        }
-        else if (player == "Paper" && AI == "Scissors")
-        {
-            return "AI wins !";
-        }
-        else if (player == "Paper" && AI == "Stone")
-        {
-            return "you win !";
-        }
-
-        if (player == "Scissors" && AI == "Stone")
-        {
-            return "AI wins !";
-        }
-        else if (player == "Scissors" && AI == "Paper")
-        {
-            return "you win !";
-        }
-
-        if (player == "Stone" && AI == "Paper")
-        {
-            return "AI wins !";
-        }
-        else if (player == "Stone" && AI == "Scissors")
-        {
-            return "you win !";
-        }
-    }
-
-    void waitdown()
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    }
-};
+}
 
 
-int main()
+std::string PSS::pick(int option)
 {
-    srand(time(NULL));
-    PSS pss1;
-    pss1.screen();
-    int option, rounds;
-    std::cout << "How many rounds do you want to play with the AI? ";
-    std::cin >> rounds;
-
-    int counter = 0;
-    for(int counter = 0; counter < rounds; ++counter)
+    if (option == 1)
     {
-        std::cout << "Select option: ";
-        std::cin >> option;
-        
-        int AIoption = rand() % 3 + 1;
+        return "Paper";
+    }
+    else if (option == 2)
+    {
+        return "Scissors";
+    }
+    else if (option == 3)
+    {
+        return "Stone";
+    }
+    return "Invalid!";
+}
 
-        std::string playerPick = pss1.pick(option);
-        std::string AIpick = pss1.pick(AIoption);
-        std::cout << "You played " << playerPick << ", the AI picked " << AIpick << " and " << pss1.decision(playerPick, AIpick) << std::endl;
-        counter++;
+
+std::string PSS::decision(std::string player, std::string robot)
+{
+    if ((player == "Paper" && robot == "Paper") || (player == "Scissors" && robot == "Scissors") || (player == "Stone" && robot == "Stone"))
+    {
+        return "it's a Tie !";
+    }
+    else if (player == "Paper" && robot == "Scissors")
+    {
+        return "the Robot wins !";
+    }
+    else if (player == "Paper" && robot == "Stone")
+    {
+        return "you win !";
     }
 
-    std::cout << "See you next time!\n";
+    if (player == "Scissors" && robot == "Stone")
+    {
+        return "the Robot wins !";
+    }
+    else if (player == "Scissors" && robot == "Paper")
+    {
+        return "you win !";
+    }
 
-    pss1.waitdown();
+    if (player == "Stone" && robot == "Paper")
+    {
+        return "the Robot wins !";
+    }
+    else if (player == "Stone" && robot == "Scissors")
+    {
+        return "you win !";
+    }
+    return "Error!";
+}
 
-    return 0;
+
+void PSS::waitdown()
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 }
