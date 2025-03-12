@@ -1,7 +1,4 @@
 #include "game.h"
-#include <iostream>
-#include <string>
-#include <thread>
 
 
 int main()
